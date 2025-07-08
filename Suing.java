@@ -1,6 +1,8 @@
 class Suing {
     public static void main(String[] args) throws InterruptedException {
-        Horde funny = new Horde(100);
-        System.out.println("Works");
+        Runnable r = new Horde();
+        Thread t = new Thread(r);
+        t.start();
+        System.out.println("Comple te");
     }
 }

@@ -6,21 +6,24 @@ import javax.swing.JLabel;
 import java.util.Random;
 import java.awt.event.*;
 
-public class Horde extends Thread {
+public class Horde implements Runnable {
     public int amount;
     public int screenLength;
     public int screenWidth;
     public Random randddd;
     public FrameMaker frim;
 
-    public void run() throws InterruptedException {
-        frim = new FrameMaker(JFrame.DO_NOTHING_ON_CLOSE, true, randddd.nextInt(50, 1000),
+    public void run() {
+        try{
+            frim = new FrameMaker(JFrame.DO_NOTHING_ON_CLOSE, true, randddd.nextInt(50, 1000),
                 randddd.nextInt(50, 1000), "Incredibly Deadly Virus", false, randddd.nextInt(50, 200),
                 randddd.nextInt(50, 200));
+        } catch (InterruptedException e){
+            System.out.println("It does not work 😭");
+        }
     }
 
-    public Horde(int amoeunt) throws InterruptedException {
-        amount = amoeunt;
+    public Horde() throws InterruptedException {
         randddd = new Random();
         run();
         JLabel hackingNotice = new JLabel();

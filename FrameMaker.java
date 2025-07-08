@@ -36,6 +36,7 @@ public class FrameMaker extends Thread {
         looloo.setTitle(title);
         looloo.setVisible(visible);
         looloo.setLocation(x, y);
+        looloo.setAlwaysOnTop(true);
         Random aaf = new Random();
         int screenLength = Toolkit.getDefaultToolkit().getScreenSize().height;
         int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;

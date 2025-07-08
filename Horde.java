@@ -14,24 +14,26 @@ public class Horde implements Runnable {
     public FrameMaker frim;
 
     public void run() {
-        try{
-            frim = new FrameMaker(JFrame.DO_NOTHING_ON_CLOSE, true, randddd.nextInt(50, 1000),
-                randddd.nextInt(50, 1000), "Incredibly Deadly Virus", false, randddd.nextInt(50, 200),
-                randddd.nextInt(50, 200));
-        } catch (InterruptedException e){
+        try {
+                        JLabel hackingNotice = new JLabel();
+            int timeRemaining = 10;
+            hackingNotice.setText("<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining+"</html>");
+            hackingNotice.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
+            frim = new FrameMaker(
+                    JFrame.DO_NOTHING_ON_CLOSE, true,
+                    randddd.nextInt(50, 1000),
+                    randddd.nextInt(50, 1000),
+                    "Incredibly Deadly Virus",
+                    false,
+                    randddd.nextInt(50, 200),
+                    randddd.nextInt(50, 200),
+                    hackingNotice);
+        } catch (InterruptedException e) {
             System.out.println("It does not work 😭");
         }
     }
 
     public Horde() throws InterruptedException {
         randddd = new Random();
-        run();
-        JLabel hackingNotice = new JLabel();
-        int timeRemaining = 10;
-        hackingNotice.setText("You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining);
-        frim.getFrayJame().add(hackingNotice);
-        frim.getFrayJame().getContentPane().setBackground(new Color(0, 255, 255));
-        hackingNotice.setFont(new Font("Comic Sans MS", Font.BOLD, 100));
-
     }
 }

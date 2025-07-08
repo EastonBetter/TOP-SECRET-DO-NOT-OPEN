@@ -16,9 +16,10 @@ public class FrameMaker extends Thread {
     public int x;
     public int y;
     public boolean rezisability;
+    public JLabel hackingNotice;
 
     public FrameMaker(int closre, boolean visibel, int withd, int lenthg, String titel, boolean resizable, int ex,
-            int wy) throws InterruptedException{
+            int wy, JLabel hackingNoticee) throws InterruptedException {
         looloo = new JFrame();
         closer = closre;
         visible = visibel;
@@ -28,6 +29,9 @@ public class FrameMaker extends Thread {
         rezisability = resizable;
         x = ex;
         y = wy;
+        hackingNotice = hackingNoticee;
+        looloo.add(hackingNotice);
+        looloo.getContentPane().setBackground(new Color(255, 0, 0));
         ImageIcon idiot = new ImageIcon("VirusLogo.png");
         looloo.setIconImage(idiot.getImage());
         looloo.setDefaultCloseOperation(closer);
@@ -42,7 +46,11 @@ public class FrameMaker extends Thread {
         int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         boolean goingLeft = aaf.nextBoolean();
         boolean goingUp = aaf.nextBoolean();
+        int stage = 0;
+        int iteration = 0;
+        int timeRemaining = 10;
         while (true) {
+            iteration++;
             if (goingLeft) {
                 x--;
             } else {
@@ -50,13 +58,37 @@ public class FrameMaker extends Thread {
             }
             if (goingUp) {
                 y--;
-
             } else {
                 y++;
+            }
+            if (iteration % 500 == 0) {
+                timeRemaining--;
+                hackingNotice.setText(
+                        "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
 
             }
             looloo.setLocation(x, y);
             Thread.sleep(2);
+            if (stage == 0) {
+                looloo.getContentPane().setBackground(new Color(looloo.getContentPane().getBackground().getRed() - 1,
+                        looloo.getContentPane().getBackground().getGreen() + 1, 0));
+                if (looloo.getContentPane().getBackground().getRed() == 0) {
+                    stage = 1;
+                }
+            } else if (stage == 1) {
+                looloo.getContentPane()
+                        .setBackground(new Color(0, looloo.getContentPane().getBackground().getGreen() - 1,
+                                looloo.getContentPane().getBackground().getBlue() + 1));
+                if (looloo.getContentPane().getBackground().getGreen() == 0) {
+                    stage = 2;
+                }
+            } else if (stage == 2) {
+                looloo.getContentPane().setBackground(new Color(looloo.getContentPane().getBackground().getRed() + 1, 0,
+                        looloo.getContentPane().getBackground().getBlue() - 1));
+                if (looloo.getContentPane().getBackground().getBlue() == 0) {
+                    stage = 0;
+                }
+            }
             if (x == 0 && goingLeft == true) {
                 goingLeft = false;
             } else if (x == screenWidth - width && goingLeft == false) {

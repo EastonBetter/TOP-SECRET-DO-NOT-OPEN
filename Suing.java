@@ -1,12 +1,12 @@
-import java.awt.event.*;
-
 class Suing {
+    public static int windowNumber;
     public static void main(String[] args) throws InterruptedException {
-        for (int a = 0; a > -2000; a--){
+        windowNumber = 1;
+        for (int a = 0; a > -(windowNumber); a--) {
             Horde h = new Horde();
-            Thread t = new  Thread(h);
+            Thread t = new Thread(h);
             t.start();
             Thread.sleep(100);
-            }
-        };
-    }
+        }
+    };
+}

@@ -1,9 +1,9 @@
-import java.awt.Font;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
+import java.awt.event.*;
 import java.util.Random;
 
 public class FrameMaker extends Thread {
@@ -41,6 +41,7 @@ public class FrameMaker extends Thread {
         looloo.setVisible(visible);
         looloo.setLocation(x, y);
         looloo.setAlwaysOnTop(true);
+        
         Random aaf = new Random();
         int screenLength = Toolkit.getDefaultToolkit().getScreenSize().height;
         int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -49,17 +50,32 @@ public class FrameMaker extends Thread {
         int stage = 0;
         int iteration = 0;
         int timeRemaining = 10;
+        looloo.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                try {
+                    for (int qpweo = 0; qpweo < Suing.windowNumber; qpweo++){
+                        Horde h = new Horde();
+                        Thread t = new Thread(h);
+                        t.start();
+                        Thread.sleep(10);
+                    }
+                    Suing.windowNumber *= 2;
+                } catch (InterruptedException ex){
+                }
+            }    
+        });
         while (true) {
             iteration++;
             if (goingLeft) {
-                x = x -4;
+                x = x -1;
             } else {
-                x = x + 4;
+                x = x + 1;
             }
             if (goingUp) {
-                y = y - 4;
+                y = y - 1;
             } else {
-                y = y + 4;
+                y = y + 1;
             }
             if (iteration % 500 == 0) {
                 timeRemaining--;

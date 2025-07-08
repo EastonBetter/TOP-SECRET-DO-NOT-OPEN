@@ -52,14 +52,14 @@ public class FrameMaker extends Thread {
         while (true) {
             iteration++;
             if (goingLeft) {
-                x--;
+                x = x -4;
             } else {
-                x++;
+                x = x + 4;
             }
             if (goingUp) {
-                y--;
+                y = y - 4;
             } else {
-                y++;
+                y = y + 4;
             }
             if (iteration % 500 == 0) {
                 timeRemaining--;

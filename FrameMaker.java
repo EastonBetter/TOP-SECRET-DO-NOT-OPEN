@@ -1,9 +1,11 @@
 import javax.swing.JFrame;
 import java.awt.Color;
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
 import java.awt.event.*;
+import java.io.File;
 import java.util.Random;
 
 public class FrameMaker extends Thread {
@@ -41,7 +43,7 @@ public class FrameMaker extends Thread {
         looloo.setVisible(visible);
         looloo.setLocation(x, y);
         looloo.setAlwaysOnTop(true);
-        
+
         Random aaf = new Random();
         int screenLength = Toolkit.getDefaultToolkit().getScreenSize().height;
         int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -52,23 +54,24 @@ public class FrameMaker extends Thread {
         int timeRemaining = 10;
         looloo.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 try {
-                    for (int qpweo = 0; qpweo < Suing.windowNumber; qpweo++){
+                    for (int qpweo = 0; qpweo < Suing.windowNumber; qpweo++) {
                         Horde h = new Horde();
                         Thread t = new Thread(h);
                         t.start();
+                        playSound("NoNoo.wav");
                         Thread.sleep(10);
                     }
                     Suing.windowNumber *= 2;
-                } catch (InterruptedException ex){
+                } catch (InterruptedException ex) {
                 }
-            }    
+            }
         });
         while (true) {
             iteration++;
             if (goingLeft) {
-                x = x -1;
+                x = x - 1;
             } else {
                 x = x + 1;
             }
@@ -80,8 +83,18 @@ public class FrameMaker extends Thread {
             if (iteration % 500 == 0) {
                 timeRemaining--;
                 hackingNotice.setText(
-                        "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
+                "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
 
+            }
+            if (timeRemaining ==0){
+                playSound("FINALFINALFINALHIP.wav");
+                timeRemaining = 10;
+                hackingNotice.setText(
+                "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
+                Horde h = new Horde();
+                Thread t = new Thread(h);
+                t.start();
+                Suing.windowNumber++;
             }
             looloo.setLocation(x, y);
             Thread.sleep(2);
@@ -148,5 +161,22 @@ public class FrameMaker extends Thread {
 
     public JFrame getFrayJame() {
         return looloo;
+    }
+    public void playSound(String filePath){
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filePath));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event){
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        clip.close();
+                    }
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 }

@@ -4,6 +4,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.util.Random;
 import java.awt.Toolkit;
+import javax.sound.sampled.*;
+import java.io.File;
 
 public class Horde implements Runnable {
     public int amount;
@@ -15,9 +17,8 @@ public class Horde implements Runnable {
     public void run() {
         try {
             JLabel hackingNotice = new JLabel();
-            int timeRemaining = 10;
-            hackingNotice
-                    .setText("<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
+                        hackingNotice
+                    .setText("<html>You are about to be hacked!!!1!v \n Time remaining: 10</html>");
                                 int wid = randddd.nextInt(50, 500)/1*1;
             hackingNotice.setFont(new Font("Comic Sans MS", Font.BOLD, wid/10));
             hackingNotice.setForeground(new Color(0xFFFFFF));
@@ -39,5 +40,22 @@ public class Horde implements Runnable {
         screenLength = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         randddd = new Random();
+    }
+    public void playSound(String filePath){
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filePath));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event){
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        clip.close();
+                    }
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 }

@@ -86,8 +86,8 @@ public class FrameMaker extends Thread {
                 "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");
 
             }
-            if (timeRemaining ==0){
-                playSound("FINALFINALFINALHIP.wav");
+            if (timeRemaining == 0){
+                playSound("weezer.wav");
                 timeRemaining = 10;
                 hackingNotice.setText(
                 "<html>You are about to be hacked!!!1!v \n Time remaining: " + timeRemaining + "</html>");

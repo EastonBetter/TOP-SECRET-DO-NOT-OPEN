@@ -84,7 +84,7 @@ class Suing {
                         loopedyet = true;
                         loopSound("buddyHolly.wav");
                     } else {
-                        playSound("hipHip.wav");
+                        playSound("FINALFINALFINALHIP.wav");
                     }
                 } catch(InterruptedException ex) {
                 }
